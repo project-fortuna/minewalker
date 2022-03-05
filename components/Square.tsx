@@ -1,4 +1,5 @@
 import React from 'react';
+import Player from './Player';
 
 type Location = {
   r: number;
@@ -27,10 +28,10 @@ const Square = (props: {
       onClick={handleClick}
     >
       {props.gameOver && props.isMine && <p className="text-red-500">MINE</p>}
+      {props.playerIsHere && <Player></Player>}
       {props.isRevealed && (
-        <p className="text-white">{props.nearbyMineCount}</p>
+        <p className="absolute text-white">{props.nearbyMineCount}</p>
       )}
-      {props.playerIsHere && <p className="absolute text-red-500">Player</p>}
       {props.isGoal && <p className="text-green-500">GOAL</p>}
     </li>
   );
