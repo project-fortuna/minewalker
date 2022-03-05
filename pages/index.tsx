@@ -16,7 +16,10 @@ const Home: NextPage = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="grid place-items-center h-screen bg-gray-900">
+      <nav className="flex justify-center items-center w-full border-b-2 border-gray-400 p-2 mb-5">
+        <h1 className="font-bold text-gray-50 text-3xl">Minewalker</h1>
+      </nav>
+      <div className="grid place-items-center max-h-screen">
         <GameBoard></GameBoard>
       </div>
     </>
