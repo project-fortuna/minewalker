@@ -60,8 +60,6 @@ const GameBoard = () => {
   const generateGridData = () => {
     const mineLocations = generateMines();
 
-    console.log(mineLocations);
-
     // Generate the initial grid data
     const squares: GridData[] = [];
     for (let i = 0; i < BOARD_WIDTH; i++) {
@@ -72,7 +70,6 @@ const GameBoard = () => {
             (mineLoc) => mineLoc.r === location.r && mineLoc.c == location.c,
           ).length >= 1;
 
-        console.log(isMine);
         squares.push({
           location,
           isMine,
@@ -86,10 +83,8 @@ const GameBoard = () => {
     squares
       .filter((g) => g.isMine)
       .forEach((g) => {
-        console.log('updating mine at', g.location);
         for (let x = g.location.r - 1; x < g.location.r + 2; x++) {
           for (let y = g.location.c - 1; y < g.location.c + 2; y++) {
-            console.log('updating mine count at', x, y);
             if (x < 0 || x >= BOARD_WIDTH || y < 0 || y >= BOARD_HEIGHT) {
               continue;
             }
@@ -187,19 +182,29 @@ const GameBoard = () => {
     <div className="w-[800px]">
       {/* Game over modal */}
       <Modal isOpen={gameOverModalOpen}>
-        <div className=" border-white border-2 w-full max-w-sm p-6 my-8 overflow-hidden text-center align-middle backdrop-blur-md text-white">
-          <div className="flex flex-col">
-            <h2>Game over!</h2>
-            <button onClick={resetGame}>Try again</button>
+        <div className=" border-gray-300 border-2 rounded-md w-full max-w-sm p-6 my-8 overflow-hidden text-center align-middle backdrop-blur-md ">
+          <div className="flex flex-col gap-3">
+            <h2 className="text-2xl text-gray-50">Game over!</h2>
+            <button
+              className="p-2 bg-red-700 rounded-md hover:bg-red-600 transition-all text-gray-50 font-semibold"
+              onClick={resetGame}
+            >
+              Try again
+            </button>
           </div>
         </div>
       </Modal>
       {/* Win modal */}
       <Modal isOpen={winModalOpen}>
-        <div className=" border-white border-2 w-full max-w-sm p-6 my-8 overflow-hidden text-center align-middle backdrop-blur-md text-white">
-          <div className="flex flex-col">
-            <h2>You win!</h2>
-            <button onClick={resetGame}>Play again</button>
+        <div className=" border-white border-2 rounded-md w-full max-w-sm p-6 my-8 overflow-hidden text-center align-middle backdrop-blur-md ">
+          <div className="flex flex-col gap-3">
+            <h2 className="text-2xl text-gray-50">YOU WIN!!!</h2>
+            <button
+              className="p-2 bg-green-700 rounded-md hover:bg-green-600 transition-all text-gray-50 font-semibold"
+              onClick={resetGame}
+            >
+              Play again
+            </button>
           </div>
         </div>
       </Modal>
@@ -212,6 +217,7 @@ const GameBoard = () => {
             isMine={g.isMine}
             playerIsHere={sameLocation(player.location, g.location)}
             onClick={handlePlayerMove}
+            playerLocation={player.location}
             isRevealed={g.isRevealed}
             gameOver={gameState === GameState.GAME_OVER}
             isGoal={sameLocation(GOAL_LOCATION, g.location)}
