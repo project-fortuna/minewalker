@@ -184,7 +184,7 @@ const GameBoard = () => {
   };
 
   return (
-    <div>
+    <div className="w-[800px]">
       {/* Game over modal */}
       <Modal isOpen={gameOverModalOpen}>
         <div className=" border-white border-2 w-full max-w-sm p-6 my-8 overflow-hidden text-center align-middle backdrop-blur-md text-white">

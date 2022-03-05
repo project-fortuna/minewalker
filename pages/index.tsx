@@ -16,7 +16,7 @@ const Home: NextPage = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="flex h-screen justify-center items-center">
+      <div className="grid place-items-center h-screen">
         <GameBoard></GameBoard>
       </div>
     </>

@@ -24,7 +24,7 @@ const Square = (props: {
   };
   return (
     <li
-      className="flex justify-center items-center w-20 h-20 bg-gray-500 border-2 border-gray-700"
+      className="flex justify-center items-center w-[80px] h-[80px] bg-gray-500 border-2 border-gray-700"
       onClick={handleClick}
     >
       {props.gameOver && props.isMine && <p className="text-red-500">MINE</p>}
