@@ -29,7 +29,9 @@ const GameState = {
 
 const BOARD_WIDTH = 10,
   BOARD_HEIGHT = 10,
-  NUM_MINES = 15;
+  N = Math.ceil((BOARD_HEIGHT + BOARD_WIDTH) / 2),
+  NUM_MINES = Math.ceil(N * Math.log2(N) / 2);
+
 
 const GOAL_LOCATION: Location = { r: BOARD_WIDTH - 1, c: BOARD_HEIGHT - 1 };
 
@@ -109,23 +111,22 @@ const GameBoard = () => {
 
   const generateMines = () => {
     const mineLocations: Location[] = [];
+    const mineSet = new Set<number>();  // stores integer values of mine location
     for (let i = 0; i < NUM_MINES; i++) {
-      let randLocation: Location = {
-        r: Math.floor(Math.random() * BOARD_WIDTH),
-        c: Math.floor(Math.random() * BOARD_HEIGHT),
-      };
-      while (
-        (randLocation.r === 0 && randLocation.c === 0) ||
-        sameLocation(randLocation, GOAL_LOCATION)
-      ) {
-        randLocation = {
-          r: Math.floor(Math.random() * BOARD_WIDTH),
-          c: Math.floor(Math.random() * BOARD_HEIGHT),
-        };
+      let randLoc = Math.floor(Math.random() * BOARD_WIDTH * BOARD_HEIGHT)
+      while (mineSet.has(randLoc)) {
+        randLoc = Math.floor(Math.random() * BOARD_WIDTH * BOARD_HEIGHT)
       }
-
-      mineLocations.push(randLocation);
+      mineSet.add(randLoc)
     }
+    // Now convert to location objects (is this actually needed? could just
+    // keep as scalar everywhere in code but would need refactor)
+    mineSet.forEach((loc) => {
+      mineLocations.push({
+        r: Math.floor(loc / BOARD_WIDTH),
+        c: loc % BOARD_WIDTH,
+      });
+    });
     return mineLocations;
   };
 
